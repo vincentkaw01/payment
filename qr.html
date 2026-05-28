@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment — Touch 'n Go</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      background: #0a0a0a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 24px;
+      padding: 40px 32px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 80px rgba(0,200,100,0.07);
+      animation: fadeUp 0.5s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,200,100,0.12);
+      color: #00c864;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: #00c864;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    h1 {
+      color: #f0f0f0;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .due-date {
+      color: #555;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .due-date span {
+      color: #aaa;
+      font-weight: 600;
+    }
+
+    .qr-section {
+      margin-bottom: 24px;
+    }
+
+    .qr-label {
+      color: #555;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .qr-wrap {
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      display: inline-block;
+    }
+
+    .qr-wrap img {
+      display: block;
+      width: 200px;
+      height: 200px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .steps {
+      text-align: left;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .steps-title {
+      color: #555;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    .steps ol { padding-left: 18px; }
+
+    .steps li {
+      color: #999;
+      font-size: 14px;
+      line-height: 1.8;
+      padding-left: 4px;
+    }
+
+    .steps li strong { color: #e0e0e0; }
+
+    .footer {
+      color: #3a3a3a;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <div class="badge">Touch 'n Go eWallet</div>
+
+    <h1>Monthly Payment</h1>
+
+    <div class="qr-section">
+      <p class="qr-label">Scan with Touch 'n Go eWallet</p>
+      <div class="qr-wrap">
+        <img src="qr.jpeg" alt="TNG QR Code" />
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="steps-title">How to Pay</div>
+      <ol>
+        <li>Open <strong>Touch 'n Go eWallet</strong></li>
+        <li>Tap <strong>Pay</strong> &rarr; <strong>Scan QR</strong></li>
+        <li>Scan the QR code above</li>
+        <li>Enter amount: <strong id="step-amount">RM X.XX</strong></li>  <!-- auto-mirrors amount above -->
+        <li>Confirm &amp; complete payment ✓</li>
+      </ol>
+    </div>
+
+    <div class="footer">
+      Please pay by the due date.<br>Contact admin if you have any issues.
+    </div>
+
+  </div>
+
+  <script>
+    // ─── CONFIG — only edit these two lines ───────────────
+    const GROUP_NAME  = "Youtube Family Plan";   // ← your group name
+    // ──────────────────────────────────────────────────────
+
+    // Mirror the amount from the visible RM value into step 4
+    const amountEl = document.querySelector(".amount-value");
+    document.getElementById("step-amount").textContent = amountEl.textContent;
+  </script>
+</body>
+</html>

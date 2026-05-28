@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <title>Payment Menu</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --card: #141414;
+      --border: #2a2a2a;
+      --green: #00c864;
+      --green-dim: rgba(0,200,100,0.12);
+      --text: #f0f0f0;
+      --muted: #666;
+      --subtle: #333;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      padding: 20px 16px 32px;
+      color: var(--text);
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+      padding-top: 8px;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-dim);
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .header-badge::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .header p {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Action buttons */
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+      opacity: 0.85;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      border-color: var(--green);
+      color: #000;
+    }
+
+    .btn-primary .btn-icon { background: rgba(0,0,0,0.15); }
+
+    .btn-icon {
+      width: 40px; height: 40px;
+      background: var(--subtle);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .btn-content { flex: 1; }
+    .btn-title { font-size: 15px; font-weight: 700; }
+    .btn-desc { font-size: 12px; opacity: 0.6; margin-top: 1px; font-weight: 400; }
+
+    .btn-arrow {
+      font-size: 18px;
+      opacity: 0.4;
+    }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider-text {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Info row */
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .info-icon {
+      font-size: 18px;
+      width: 32px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .info-text {
+      font-size: 13px;
+      color: #aaa;
+      line-height: 1.4;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: var(--subtle);
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-badge">Payment Portal</div>
+    <h1>Monthly Collection</h1>  <!-- ← EDIT: your group/collection name -->
+    <p id="group-name">Youtube Family Plan</p>  <!-- ← EDIT: your group name -->
+  </div>
+
+  <div class="actions">
+
+    <!-- Button 1: Pay Now → your TNG QR page -->
+    <a class="btn btn-primary" href="https://vincentkaw01.github.io/payment/qr.html" target="_blank">
+      <!-- ↑ EDIT: replace with your GitHub Pages URL -->
+      <div class="btn-icon">💳</div>
+      <div class="btn-content">
+        <div class="btn-title">Pay Now</div>
+        <div class="btn-desc">View TNG QR code & instructions</div>
+      </div>
+      <div class="btn-arrow">›</div>
+    </a>
+
+    <!-- Button 2: Payment History → your Google Sheet -->
+    <a class="btn" href="https://docs.google.com/spreadsheets/d/1sNBjUmEN57YLTtLTyHXl6n9ThPriwFYIqB6Zkk9Zry4/edit?usp=sharing" target="_blank">
+      <!-- ↑ EDIT: replace with your Google Sheet view-only link -->
+      <div class="btn-icon">📋</div>
+      <div class="btn-content">
+        <div class="btn-title">Payment History</div>
+        <div class="btn-desc">View who has paid this month</div>
+      </div>
+      <div class="btn-arrow">›</div>
+    </a>
+
+  </div>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">How to use</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="info-row">
+    <div class="info-icon">1️⃣</div>
+    <div class="info-text">Tap <strong style="color:#eee">Pay Now</strong> to open the TNG QR code</div>
+  </div>
+
+  <div class="info-row">
+    <div class="info-icon">2️⃣</div>
+    <div class="info-text">Scan the QR with your TNG eWallet app & complete payment</div>
+  </div>
+
+  <div class="info-row">
+    <div class="info-icon">3️⃣</div>
+    <div class="info-text">Type <strong style="color:#eee">/paid</strong> in the group chat to record your payment</div>
+  </div>
+
+  <div class="info-row">
+    <div class="info-icon">4️⃣</div>
+    <div class="info-text">Tap <strong style="color:#eee">Payment History</strong> to check if your payment was verified</div>
+  </div>
+
+  <div class="footer">
+    Contact admin if you have any issues
+  </div>
+
+  <script>
+    // Init Telegram Web App
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      tg.ready();
+      tg.expand(); // open full height
+    }
+  </script>
+
+</body>
+</html>
